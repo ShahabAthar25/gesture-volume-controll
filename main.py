@@ -1,6 +1,7 @@
 from modules import hand_detection as hand
 import cv2
 import time
+import math
 
 camera_width, camera_height = 640, 480
 
@@ -31,6 +32,8 @@ while True:
 
         cv2.line(img, (x1, y1),(x2, y2), (0, 0, 255), 3)
 
+        lenght = math.hypot(x1 - x2, y2 - y1)
+        print(lenght)
     current_time = time.time()
     fps = 1 / (current_time - previous_time)
     previous_time = current_time
