@@ -12,12 +12,22 @@ cap.set(4, camera_height)
 current_time = 0
 previous_time = 0
 
-detector = hand.hand_detector()
+detector = hand.hand_detector(detection_cofidence=0.7)
 
 while True:
     success, img = cap.read()
 
     img = detector.find_hand(img)
+
+    landmarks = detector.get_landmark(img, draw=False)
+
+    if len(landmarks) != 0:
+        
+        x1, y1 = landmarks[4][1], landmarks[4][2]
+        x2, y2 = landmarks[8][1], landmarks[8][2]
+
+        cv2.circle(img, (x1, y1), 15, (0, 0, 255), cv2.FILLED)
+        cv2.circle(img, (x2, y2), 15, (0, 0, 255), cv2.FILLED)
 
     current_time = time.time()
     fps = 1 / (current_time - previous_time)
