@@ -1,4 +1,5 @@
 from modules import hand_detection as hand
+import alsaaudio
 import cv2
 import time
 import math
@@ -33,7 +34,18 @@ while True:
         cv2.line(img, (x1, y1),(x2, y2), (0, 0, 255), 3)
 
         lenght = math.hypot(x1 - x2, y2 - y1)
-        print(lenght)
+
+        if lenght > 300:
+            lenght = 300
+
+        lenght_percentage = lenght/300 * 100
+        lenght_percentage = int(lenght_percentage)
+
+        m = alsaaudio.Mixer()
+        vol = m.getvolume()
+        m.setvolume(lenght_percentage)
+        print(vol)
+
     current_time = time.time()
     fps = 1 / (current_time - previous_time)
     previous_time = current_time
