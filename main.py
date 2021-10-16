@@ -12,7 +12,7 @@ cap.set(4, camera_height)
 current_time = 0
 previous_time = 0
 
-detector = hand.hand_detector(detection_cofidence=0.7)
+detector = hand.hand_detector(detection_cofidence=0.9)
 
 while True:
     success, img = cap.read()
@@ -28,6 +28,8 @@ while True:
 
         cv2.circle(img, (x1, y1), 15, (0, 0, 255), cv2.FILLED)
         cv2.circle(img, (x2, y2), 15, (0, 0, 255), cv2.FILLED)
+
+        cv2.line(img, (x1, y1),(x2, y2), (0, 0, 255), 3)
 
     current_time = time.time()
     fps = 1 / (current_time - previous_time)
